@@ -1,0 +1,217 @@
+#Selenium con Python
+
+*en el inspector de Google Chrome si presionamos click derecho en alguna etiqueta, luego en copy podemos copiar
+ el selector y la ruta para llegar a ellos(XPath)
+
+*si queremos generar datos random para campos de texto podemos usar:
+	.https://www.mockaroo.com/
+	.esta página permite generar un esquema personalizado de datos y también permite crear una API muy fácil
+	 de consumir para obtener dichos datos 
+
+*comandos importantes para Web Driver:
+	.https://www.techbeamers.com/important-selenium-webdriver-commands/
+
+-Selenium es una suite de herramienta para la automatización de navegadores
+
+-Selenium es compatible con diferentes lenguajes de programación cómo java, kotlin, javascript, ruby
+
+-el objetivo de Selenium no fue para el testing ni para el web scraping (aunque se puede usar para estas), 
+ por lo tanto no es el más optimo para estas actividades
+
+-el protocolo Web Driver el cual permite conectarse a una API de alto nivel para poder ejecutar comandos 
+ en el navegador web
+
+-Selenium no es un software es una suite de softwares
+
+-Selenium IDE: es bastante bueno si se quiere iniciar en el mundo del testing y las pruebas unitarias, funciona
+ solamente a base de clicks en los elementos de los sitios web, también nos brinda reportes
+
+-Selenium RC: varias plataformas, navegadores y lenguajes, acepta DDT(data driven testing), 
+
+-Selenium Web Driver: soporte para múltiples lenguajes, fácil de instalar, comunicación directa con el navegador
+ 					 y la interacción es muchísimo más realista, en los contras podemos encontrar que no soporta
+ 					 nuevos navegadores tan rápido, no genera reportes o resultados de pruebas, requiere de saber 
+ 					 programar
+
+-Selenium Grid: se utiliza junto a Selenium RC, permite correr pruebas en paralelo, conveniente para ahorrar tiempo
+
+#Otras herramientas de testing y automatización
+
+-Puppeteer 	pros:	-soporte por parte de google
+					-datos del performance analysis de Chrome
+					-mayor control de Chrome
+					-no requiere de drivers externos
+					-también funciona en Firefox Nightly
+
+			contras:-funciona solo en Chrome y con JavaScript
+					-comunidad pequeña
+
+-Cypress.io:	pros:	-comunidad emergente
+						-buena documentación con ejemplos
+						-bastante ágil en pruebas E2E (end to end)
+						-orientado a desarrolladores
+						-excelente manejo de asincronismo
+
+
+				contras:-funciona solo en Chrome con JavaScript
+						-pruebas en paralelo solo en versión de pago
+
+
+#Entorno de Virtual
+-para instalar Seleinium, escribimos en la consola de comandos:
+	.pip install selenium
+
+-luego instalaremos una librería de reportes en HTML para python:
+	.pip install pyunitreport
+
+#Entorno Virtual
+-para instalar el entorno virtual:
+	.pip install virtualenv
+
+-luego en la carpeta donde queremos crear nuestro entorno virtual:
+	.virtualenv nombreEntorno
+
+-después para activarlo debemos 
+	.	.\nombreEntorno\Scripts\activate
+
+#Unittest (PyTest)
+-para instalar la librería de Unit Test:
+	.pip install -U pytest 
+
+-Text Fixture: preparaciones para antes y después de la prueba
+
+-Test Case: unidad de código a probar
+
+-Test Suite: colección de Test Cases
+
+-Test Runner: orquestador de la ejecución
+
+-Test Report: resumen de los resultados
+
+---
+-para conectar Selenium con el navegador de Chrome debemos descargar el Chrome Driver
+
+*si usamos windows, en python para indicar una ruta debemos hacerlo con:
+	.r'ruta_del_archivo'
+
+-los test se ejecutan por orden alfabético
+
+-si los métodos no tienen la palabra test entonces no los ejecuta
+
+-si queremos que las pruebas se corran en una sola ventana debemos agregar el decorador @classmethod 
+ a las funciones setUp(self) y tearDown(self), también debemos agregar el Class por lo que quedarían así:
+ 	.@classmethod
+ 	 setUpClass(cls)
+
+ 	.@classmethod
+ 	 tearDownClass(cls)
+
+-los assertions son verificaciones que hacemos en el código para verificar que una condición se cumpla o no
+ 
+-una de las desventajas de selenium es que si corremos pruebas debemos hacerlo desde el inicio del Script,
+ no podemos empezar desde una parte en especifico
+
+-si bien con selenium debemos correr el script de principio a fin y no podemos partir de un 
+ punto intermedio, pytest nos permite ejecutar tests específicos, solo tienes que poner en la consola:
+ 	.pytest 
+ 	 search_tests.py::HomePageTests::test_count_of_promo_banner_images 
+
+ 	.Donde cada “::” nos permite bajar un nivel:
+		Archivo::Clase::Test
+
+
+*podemos seguir la siguiente prioridad para encontrar elementos:
+	.Id
+	.Nombre del atributo
+	.Nombre de la clase
+	.Nombre de la etiqueta
+	.XPath (Ruta del nodos en el XML)
+	.Selector de CSS
+	.Texto del link
+	.Texto parcial del link
+
+-los Assertions son métodos que permiten validar un valor esperado en la ejecución del test. Si el resultado
+ es verdadero el test continúa, en caso contrario "falla" y termina:
+ 	.assertEqual(price.text, "300") #el texto de un elemento que se llama price sea igual a 300 como un String
+ 	 no cómo un número 
+
+-los Tests Suites son una colección tests unificados en una sola prueba, permitiendo tener resultados grupales
+ e individuales
+
+#Clase Web Driver
+-cuenta con una serie de propiedades y métodos para interactuar directamente con la ventana del navegador y
+ sus elementos relacionados, cómo son pop-ups o alerts.
+
+-Estos son las propiedades y atributos más comunes para acceder al navegador:
+	.current_url: Obtiene la URL del sitio en la que se encuentra el navegador, ej: driver.get_url
+	.current_window_handle: Obtiene la referencia que identifica a la ventana activa en ese momento
+	.name: obtiene el navegador subyacente para la instancia activa
+	.orientation: obtiene la orientación actual del dispositivo
+	.page_source: obtiene el código fuente disponible del sitio web
+	.title: obtiene el valor de la etiqueta <title> del sitio web
+
+#Clase Web Element
+-esta clase nos permite interactuar específicamente con elementos de los sitios web como 
+ textbox, text area, button, radio button, checkbox, etc.
+
+-propiedades más comunes:
+	.size: obtiene el tamaño del elemento, ej: login.size
+	.tag_name: obtiene el nombre de la etiqueta HTML del elemento, ej: login.tag_name
+	.text: obtiene el texto del elemento, ej: login_text
+
+-métodos más comunes:
+	.clear(): limpia el contenido de un textarea
+	.click(): hace click en un elemento send_button.click()
+	.get_attribute(name): obtiene el valor del atributo de un elemento
+	.is_displayed(): verifica si el elemento está a la vista del usuario
+	.is_enabled(): verifica si elemento está habilitado
+	.is_selected(): verifica si el elemento está seleccionado, para el caso
+	  				del checkbox o radiobutton
+	.send_keys(value): simula escribir o presionar teclas en un elemento
+	.submit(): envía un formulario o confirmación en un textarea
+	.value_of_css_property(property_name): obtiene el valor de una propiedad CSS 
+									del elemento, ej: header.value_of_css_property(‘background-color’)
+
+-para trabajar con listas desplegables debemos importar el modulo Select de Selenium Web Driver
+
+#Demora Explicita y Implícita
+-las pausas nos sirven para manejar el asincronismo, unas de las debilidades de Selenium
+
+-Implícita: busca uno o varios elementos en el DOM si no se encuentran disponibles por la cantidad de
+ 			tiempo asignado
+
+-Explicita: utiliza condiciones de espera determinadas y continúa hasta que se cumplan
+
+-el modulo By de Selenium nos sirve para hacer referencia a un elemento del sitio web a través de 
+ sus selectores, no para identificarlo sino para interactuar distinto a como lo hace driver
+	.from selenium.webdriver.common.by import By
+
+-el modulo WebDriverWait nos permite hacer uso de las expected conditions junto con las esperas explicitas:
+	.from selenium.webdriver.support.ui import WebDriverWait
+
+-para importar las expected conditions debemos importar el modulo expected_conditions:
+	.from selenium.webdriver.support import expected_conditions as EC
+
+#TDD o DDT
+-Test Driven Development(TDD): desarrollar código en base a pruebas que pueda cumplirlas.
+
+-Data Driven Testing(DDT): desarrollar pruebas en base a código ya existente para validar en que
+ escenarios pasan o fallan
+
+-para ocupar DDT debemos instalar la librería:
+	.pip install ddt
+
+#Page Object Model
+-para este patrón de diseño tenemos que crear una clase para la página y otra clase para 
+ los test, todos los test que hagamos los hacemos contra el objeto de la página
+
+-este patrón de diseño nos ayuda a que si la página se modifica sólo tendremos que modificar 
+ el objeto y todos los test quedarían igual.
+
+-esto tiene algunos beneficios como:
+	.crea un alto nivel de abstracción para minimizar los cambios en las pruebas si los 
+	 desarrolladores modifican el sitio
+	.crea código reutilizable que se puede utilizar en múltiples pruebas
+	.las pruebas son más legibles, flexibles y vigentes
+----
+-podemos usar Selenium Grid para hacer pruebas en paralelo y Appium para mobile testing
